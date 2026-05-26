@@ -1,7 +1,7 @@
 ARG REGISTRY=ghcr.io
 ARG REPO_OWNER=imagenetmit
 
-FROM ${REGISTRY}/${REPO_OWNER}/uosserver:0.0.54-multiarch
+FROM ${REGISTRY}/${REPO_OWNER}/uosserver:0.0.56-multiarch
 
 ARG REPO_OWNER
 
