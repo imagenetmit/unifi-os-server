@@ -13,11 +13,32 @@ Run [UniFi OS Server](https://blog.ui.com/article/introducing-unifi-os-server) d
 
 ## Docker Compose
 
-See [docker-compose.yaml](https://github.com/lemker/unifi-os-server/blob/main/docker-compose.yaml)
+See [docker-compose.yaml](./docker-compose.yaml)
 
 ## Kubernetes
 
-See [kubernetes](https://github.com/lemker/unifi-os-server/tree/main/kubernetes)
+See [kubernetes](./kubernetes)
+
+## Fork Setup
+
+This fork is set up to publish container images to the current repository owner on GHCR through GitHub Actions.
+
+This fork currently publishes to:
+
+- `ghcr.io/imagenetmit/unifi-os-server:latest`
+
+Recommended git remote layout for a fork:
+
+```bash
+git remote add upstream https://github.com/lemker/unifi-os-server.git
+git fetch upstream
+```
+
+GitHub Actions requirements for the fork:
+
+- Enable Actions for the repository.
+- Allow workflows to create and write packages to GHCR.
+- Run the image workflow from your fork to publish `ghcr.io/imagenetmit/unifi-os-server`.
 
 Deployment example uses [ingress-nginx](https://github.com/kubernetes/ingress-nginx) for the ingress and [longhorn](https://github.com/longhorn/longhorn) for storage.
 
