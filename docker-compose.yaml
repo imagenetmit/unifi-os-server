@@ -16,7 +16,7 @@ services:
       - /var/lib/journal
       - /var/opt/unifi/tmp:size=64m
     environment:
-      - UOS_SYSTEM_IP=unifi.example.com
+      - UOS_SYSTEM_IP=unifios.imagenetmit.com
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
       - ./persistent:/persistent
@@ -31,12 +31,12 @@ services:
       # - 5005:5005 # Optional
       # - 9543:9543 # Optional
       # - 6789:6789 # Optional
-      # - 8080:8080
+      - 18080:8080
       # - 8443:8443 # Optional
       # - 8444:8444 # Optional
-      # - 3478:3478/udp
+      - 3478:3478/udp
       # - 5514:5514/udp # Optional
-      # - 10003:10003/udp
+      - 10003:10003/udp
       # - 11084:11084 # Optional
       # - 5671:5671 # Optional
       # - 8880:8880 # Optional
