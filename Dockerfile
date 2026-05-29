@@ -1,13 +1,13 @@
 ARG REGISTRY=ghcr.io
 ARG REPO_OWNER=imagenetmit
 
-FROM ${REGISTRY}/${REPO_OWNER}/uosserver:0.0.56-multiarch
+FROM ${REGISTRY}/${REPO_OWNER}/uosserver:f77bca81ecbf-multiarch
 
 ARG REPO_OWNER
 
 LABEL org.opencontainers.image.source="https://github.com/${REPO_OWNER}/unifi-os-server"
 
-ENV UOS_SERVER_VERSION="5.0.8"
+ENV UOS_SERVER_VERSION="5.1.15"
 
 STOPSIGNAL SIGRTMIN+3
 
