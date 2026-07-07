@@ -3,11 +3,11 @@ name: Check for new releases
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 * * * *"
+    - cron: "27 * * * *"
 
 jobs:
   release-check:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
     outputs:
       UOS_VERSION: ${{ steps.version.outputs.UOS_VERSION }}
@@ -57,7 +57,7 @@ jobs:
           echo "UOS_DOWNLOAD_ARM64=$UOS_DOWNLOAD_ARM64"
 
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
 
       - name: Check if pull request already exists
         id: release
@@ -73,10 +73,10 @@ jobs:
             --json number \
             --jq 'length')
           if [ "${pr_count}" -gt 0 ]; then
-            echo "UOS_SERVER_VERSION ${{ env.UOS_VERSION }} already exists!"
+            echo "APP_VERSION ${{ env.UOS_VERSION }} already exists!"
             echo "released=true" >> "$GITHUB_OUTPUT"
           else
-            echo "UOS_SERVER_VERSION ${{ env.UOS_VERSION }} does not exist!"
+            echo "APP_VERSION ${{ env.UOS_VERSION }} does not exist!"
             echo "released=false" >> "$GITHUB_OUTPUT"
           fi
         
@@ -102,7 +102,7 @@ jobs:
       tag: ${{ needs.extract-linux-amd64.outputs.PODMAN_IMAGE_TAG }}
 
   create-pr:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: [release-check, extract-linux-amd64, extract-linux-arm64, build-uosserver]
     if: "${{ needs.release-check.outputs.RELEASED == 'false' }}"
     timeout-minutes: 10
@@ -113,15 +113,15 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
 
       - name: Update Dockerfile
         run: |
           sed -i "s/uosserver:.*/uosserver:$PODMAN_IMAGE_TAG-multiarch/" Dockerfile
-          sed -i "s/UOS_SERVER_VERSION=.*/UOS_SERVER_VERSION=\"$UOS_VERSION\"/" Dockerfile
+          sed -i "s/APP_VERSION=.*/APP_VERSION=\"$UOS_VERSION\"/" Dockerfile
       
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v8
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "Update UniFi OS Server to ${{ env.UOS_VERSION }}"

@@ -7,7 +7,10 @@ ARG REPO_OWNER
 
 LABEL org.opencontainers.image.source="https://github.com/${REPO_OWNER}/unifi-os-server"
 
-ENV UOS_SERVER_VERSION="5.1.19"
+ENV container="docker"
+ENV APP_VERSION="5.1.19"
+ENV APP_MODEL="UOSSERVER"
+ENV PRODUCT_NAME="UniFi OS Server"
 
 STOPSIGNAL SIGRTMIN+3
 

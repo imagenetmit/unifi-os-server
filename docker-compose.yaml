@@ -37,7 +37,7 @@ services:
       - 3478:3478/udp
       # - 5514:5514/udp # Optional
       - 10003:10003/udp
-      # - 11084:11084 # Optional
+      # - 127.0.0.1:11084:11084 # Optional
       # - 5671:5671 # Optional
       # - 8880:8880 # Optional
       # - 8881:8881 # Optional
